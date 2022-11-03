@@ -28,7 +28,7 @@ namespace PruebaEFCore.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=SchoolDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("ALEMOS-NOTE;Database=SchoolDB;Trusted_Connection=True;");
             }
         }
 

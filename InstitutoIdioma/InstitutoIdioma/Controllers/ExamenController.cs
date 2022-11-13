@@ -73,7 +73,7 @@ namespace InstitutoIdioma.Controllers
                 return NotFound();
             }
 
-            var examen = await _context.Examenes.FindAsync(id);
+            var examen = await _context.Examenes.Include("Preguntas").FirstOrDefaultAsync(e => e.Id == id); 
             if (examen == null)
             {
                 return NotFound();
@@ -145,14 +145,13 @@ namespace InstitutoIdioma.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> CreatePregunta(int? id)
+        public async Task<IActionResult> AddPregunta(int id, string enunciado)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var examen = await _context.Examenes.FirstOrDefaultAsync(e => e.Id == id);
+            examen.Preguntas.Add(new Pregunta { Enunciado = enunciado });
+            await _context.SaveChangesAsync();
 
-            return RedirectToAction("Create", "Pregunta");
+            return RedirectToAction("Edit", new { id = id });
         }
 
         private bool ExamenExists(int id)

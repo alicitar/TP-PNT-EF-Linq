@@ -43,10 +43,20 @@ namespace InstitutoIdioma.Controllers
             return View(pregunta);
         }
 
+
         // GET: Pregunta/Create
-        public IActionResult Create()
+        public IActionResult Create(int examenId)
         {
-            return View();
+            var examen = _context.Examenes.FirstOrDefault(e => e.Id == examenId);
+
+            if (examen == null)
+            {
+                return NotFound();
+            }
+
+            Pregunta pregunta = new Pregunta();
+            pregunta.Examen = examen;
+            return View(pregunta);
         }
 
         // POST: Pregunta/Create
@@ -54,19 +64,17 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Enunciado")] Pregunta pregunta)
+        public async Task<IActionResult> Create([Bind("Id, Enunciado, Examen")] Pregunta pregunta)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pregunta);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AddPregunta", "Examen", new { id= pregunta.Examen.Id, enunciado = pregunta.Enunciado });
             }
             return View(pregunta);
         }
 
         // GET: Pregunta/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id, int examenId)
         {
             if (id == null)
             {
@@ -86,7 +94,7 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Enunciado")] Pregunta pregunta)
+        public async Task<IActionResult> Edit(int id, int examenId, [Bind("Id,Enunciado")] Pregunta pregunta)
         {
             if (id != pregunta.Id)
             {

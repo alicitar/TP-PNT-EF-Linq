@@ -37,6 +37,7 @@ namespace InstitutoIdioma
             services.AddDbContext<InstitutoDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:InstitutoDBConnection"]));
             services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

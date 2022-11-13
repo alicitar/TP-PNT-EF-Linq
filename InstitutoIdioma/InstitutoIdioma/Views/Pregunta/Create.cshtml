@@ -1,10 +1,10 @@
 ﻿@model InstitutoIdioma.Models.Pregunta
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Creación de pregunta";
 }
 
-<h1>Create</h1>
+<h1>Creación de pregunta para el examen: @Model.Examen.Nombre</h1>
 
 <h4>Pregunta</h4>
 <hr />
@@ -17,15 +17,16 @@
                 <input asp-for="Enunciado" class="form-control" />
                 <span asp-validation-for="Enunciado" class="text-danger"></span>
             </div>
+            <input asp-for="Examen.Id" hidden />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {

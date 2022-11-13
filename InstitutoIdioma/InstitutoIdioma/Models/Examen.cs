@@ -15,14 +15,13 @@ namespace InstitutoIdioma.Models
             Usuarios = new List<UsuarioExamen>();
         }
 
+        // clave primaria de la tabla
         [Key]
+        // Autoincremental en base de datos (que se genere solo)
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
         public string Nombre { get; set; }
-
-        [Display(Name = "Está aprobado")]
-        public bool EstaAprobado { get; set; }
 
         public List<Pregunta> Preguntas { get; set; }
 

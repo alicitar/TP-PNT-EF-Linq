@@ -33,8 +33,8 @@ namespace InstitutoIdioma.Controllers
                 return NotFound();
             }
 
-            var examen = await _context.Examenes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var examen = await _context.Examenes.Include("Preguntas").FirstOrDefaultAsync(e => e.Id == id);
+
             if (examen == null)
             {
                 return NotFound();
@@ -124,8 +124,7 @@ namespace InstitutoIdioma.Controllers
                 return NotFound();
             }
 
-            var examen = await _context.Examenes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var examen = await _context.Examenes.Include("Preguntas").FirstOrDefaultAsync(e => e.Id == id);
             if (examen == null)
             {
                 return NotFound();

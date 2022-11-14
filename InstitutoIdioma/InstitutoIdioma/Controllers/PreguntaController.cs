@@ -76,13 +76,15 @@ namespace InstitutoIdioma.Controllers
         // GET: Pregunta/Edit/5
         public async Task<IActionResult> Edit(int id, int examenId)
         {
-            if (id == null)
+            if (id == null || examenId == null)
             {
                 return NotFound();
             }
 
+            var examen = await _context.Examenes.FindAsync(examenId);
             var pregunta = await _context.preguntas.FindAsync(id);
-            if (pregunta == null)
+            pregunta.Examen = examen;
+            if (pregunta == null || examen == null)
             {
                 return NotFound();
             }
@@ -94,9 +96,9 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, int examenId, [Bind("Id,Enunciado")] Pregunta pregunta)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Enunciado, Examen")] Pregunta pregunta)
         {
-            if (id != pregunta.Id)
+            if (id != pregunta.Id )
             {
                 return NotFound();
             }
@@ -119,7 +121,7 @@ namespace InstitutoIdioma.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Examen", new { id = pregunta.Examen.Id });
             }
             return View(pregunta);
         }

@@ -1,10 +1,10 @@
 ﻿@model InstitutoIdioma.Models.Examen
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Examen</h4>
@@ -17,8 +17,35 @@
             @Html.DisplayFor(model => model.Nombre)
         </dd>
     </dl>
+    <div><p>Preguntas</p></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Enunciado
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Preguntas)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Enunciado)
+                    </td>
+                    <td>
+                        <a asp-controller="Pregunta" asp-action="Details" asp-route-id="@item.Id" asp-route-examenId="@Model.Id">Detalles</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>

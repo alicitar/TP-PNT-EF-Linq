@@ -30,11 +30,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.O)
+                    @foreach (var item in Model.Opciones)
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Enunciado)
+                                @Html.DisplayFor(modelItem => item.Texto)
                             </td>
                             <td>
                                 <a asp-controller="Pregunta" asp-action="Edit" asp-route-id="@item.Id" asp-route-examenid="@Model.Id">Editar</a> |
@@ -56,12 +56,7 @@
 </div>
 
 <input asp-for="Examen.Id" hidden />
-<div class="form-group">
-    <input type="submit" value="Guardar" class="btn btn-primary" />
-</div>
-        </form>
-    </div>
-</div>
+
 
 <div>
     <a href="javascript:void(0);" onclick="history.go(-1);">Volver</a>

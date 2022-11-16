@@ -26,16 +26,17 @@ namespace InstitutoIdioma.Controllers
         }
 
         // GET: Pregunta/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, int examenId)
         {
-            if (id == null)
+
+            if (id == null || examenId == null)
             {
                 return NotFound();
             }
-
-            var pregunta = await _context.preguntas
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (pregunta == null)
+            var examen = await _context.Examenes.FindAsync(examenId);
+            var pregunta = await _context.preguntas.FindAsync(id);
+            pregunta.Examen = examen;
+            if (pregunta == null || examen == null)
             {
                 return NotFound();
             }

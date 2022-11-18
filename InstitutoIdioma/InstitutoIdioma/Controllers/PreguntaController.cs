@@ -22,7 +22,7 @@ namespace InstitutoIdioma.Controllers
         // GET: Pregunta
         public async Task<IActionResult> Index()
         {
-            return View(await _context.preguntas.ToListAsync());
+            return View(await _context.Preguntas.ToListAsync());
         }
 
         // GET: Pregunta/Details/5
@@ -34,7 +34,7 @@ namespace InstitutoIdioma.Controllers
                 return NotFound();
             }
             var examen = await _context.Examenes.FindAsync(examenId);
-            var pregunta = await _context.preguntas.FindAsync(id);
+            var pregunta = await _context.Preguntas.FindAsync(id);
             pregunta.Examen = examen;
             if (pregunta == null || examen == null)
             {
@@ -69,7 +69,7 @@ namespace InstitutoIdioma.Controllers
         {
             if (ModelState.IsValid)
             {
-                return RedirectToAction("AddPregunta", "Examen", new { id= pregunta.Examen.Id, enunciado = pregunta.Enunciado });
+                return RedirectToAction("AddPregunta", "Examen", new { id = pregunta.Examen.Id, enunciado = pregunta.Enunciado });
             }
             return View(pregunta);
         }
@@ -83,7 +83,7 @@ namespace InstitutoIdioma.Controllers
             }
 
             var examen = await _context.Examenes.FindAsync(examenId);
-            var pregunta = await _context.preguntas.FindAsync(id);
+            var pregunta = await _context.Preguntas.Include(o => o.Opciones).FirstOrDefaultAsync(p => p.Id == id);
             pregunta.Examen = examen;
             if (pregunta == null || examen == null)
             {
@@ -99,7 +99,7 @@ namespace InstitutoIdioma.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Enunciado, Examen")] Pregunta pregunta)
         {
-            if (id != pregunta.Id )
+            if (id != pregunta.Id)
             {
                 return NotFound();
             }
@@ -108,6 +108,8 @@ namespace InstitutoIdioma.Controllers
             {
                 try
                 {
+                    pregunta.Examen = await _context.Examenes.FirstOrDefaultAsync(e => e.Id == pregunta.Examen.Id);
+
                     _context.Update(pregunta);
                     await _context.SaveChangesAsync();
                 }
@@ -135,7 +137,7 @@ namespace InstitutoIdioma.Controllers
                 return NotFound();
             }
 
-            var pregunta = await _context.preguntas
+            var pregunta = await _context.Preguntas
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (pregunta == null)
             {
@@ -150,15 +152,25 @@ namespace InstitutoIdioma.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pregunta = await _context.preguntas.FindAsync(id);
-            _context.preguntas.Remove(pregunta);
+            var pregunta = await _context.Preguntas.FindAsync(id);
+            _context.Preguntas.Remove(pregunta);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PreguntaExists(int id)
         {
-            return _context.preguntas.Any(e => e.Id == id);
+            return _context.Preguntas.Any(e => e.Id == id);
+        }
+
+        public async Task<IActionResult> AddOpcion(int id, string texto, bool esCorrecta)
+        {
+            var pregunta = await _context.Preguntas.Include(e => e.Examen).FirstOrDefaultAsync(e => e.Id == id);
+            pregunta.Opciones.Add(new Opcion { Texto = texto, EsCorrecta = esCorrecta });
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Edit", new { id = id, examenId = pregunta.Examen.Id });
         }
     }
 }
+

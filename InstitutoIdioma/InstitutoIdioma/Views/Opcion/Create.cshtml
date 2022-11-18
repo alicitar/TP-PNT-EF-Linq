@@ -4,6 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
+
+<h1>Creación de opcion para la pregunta: @Model.Pregunta.Enunciado</h1>
+
 <h1>Create</h1>
 
 <h4>Opcion</h4>
@@ -22,6 +25,7 @@
                     <input class="form-check-input" asp-for="EsCorrecta" /> @Html.DisplayNameFor(model => model.EsCorrecta)
                 </label>
             </div>
+            <input asp-for="Pregunta.Id" hidden />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

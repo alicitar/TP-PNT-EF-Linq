@@ -9,7 +9,7 @@
 <h4>Pregunta</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
@@ -26,6 +26,9 @@
                             Opción
                         </th>
                         <th>
+                            Correcta
+                        </th>
+                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -37,16 +40,20 @@
                                 @Html.DisplayFor(modelItem => item.Texto)
                             </td>
                             <td>
-                                <a asp-controller="Pregunta" asp-action="Edit" asp-route-id="@item.Id" asp-route-examenid="@Model.Id">Editar</a> |
-                                <a asp-controller="Pregunta" asp-action="Details" asp-route-id="@item.Id" asp-route-examenId="@Model.Id">Detalles</a> |
-                                <a asp-controller="Pregunta" asp-action="Delete" asp-route-id="@item.Id" asp-route-examenId="@Model.Id">Eliminar</a>
+                                @Html.DisplayFor(modelItem => item.EsCorrecta)
+                            </td>
+                            <td>
+                                <a asp-controller="Opcion" asp-action="Edit" asp-route-id="@item.Id" asp-route-preguntaId="@Model.Id">Editar</a> |
+                                <a asp-controller="Opcion" asp-action="Details" asp-route-id="@item.Id" asp-route-preguntaId="@Model.Id">Detalles</a> |
+                                <a asp-controller="Opcion" asp-action="Delete" asp-route-id="@item.Id" asp-route-preguntaId="@Model.Id">Eliminar</a>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+            <input asp-for="Examen.Id" hidden />
             <p>
-                <a asp-controller="Pregunta" asp-action="Create" asp-route-examenId="@Model.Id">Agregar Pregunta</a>
+                <a asp-controller="Opcion" asp-action="Create" asp-route-preguntaId="@Model.Id">Agregar Opción</a>
             </p>
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
@@ -54,8 +61,6 @@
         </form>
     </div>
 </div>
-
-<input asp-for="Examen.Id" hidden />
 
 
 <div>

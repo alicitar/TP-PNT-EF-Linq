@@ -44,9 +44,18 @@ namespace InstitutoIdioma.Controllers
         }
 
         // GET: Opcion/Create
-        public IActionResult Create()
+        public IActionResult Create(int preguntaId)
         {
-            return View();
+            var pregunta = _context.Preguntas.FirstOrDefault(e => e.Id == preguntaId);
+
+            if (pregunta == null)
+            {
+                return NotFound();
+            }
+
+            Opcion opcion = new Opcion();
+            opcion.Pregunta = pregunta;
+            return View(opcion);
         }
 
         // POST: Opcion/Create
@@ -54,27 +63,26 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Texto,EsCorrecta")] Opcion opcion)
+        public async Task<IActionResult> Create([Bind("Id,Texto,EsCorrecta, Pregunta")] Opcion opcion)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(opcion);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("AddOpcion", "Pregunta", new { id = opcion.Pregunta.Id, texto = opcion.Texto, esCorrecta = opcion.EsCorrecta });
             }
             return View(opcion);
         }
 
         // GET: Opcion/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int preguntaId)
         {
-            if (id == null)
+            if (id == null || preguntaId == null)
             {
                 return NotFound();
             }
 
+            var pregunta = await _context.Preguntas.Include(e => e.Examen).FirstOrDefaultAsync(e => e.Id == preguntaId);
             var opcion = await _context.Opciones.FindAsync(id);
-            if (opcion == null)
+            if (opcion == null || preguntaId == null)
             {
                 return NotFound();
             }
@@ -86,7 +94,7 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Texto,EsCorrecta")] Opcion opcion)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Texto,EsCorrecta, Pregunta")] Opcion opcion)
         {
             if (id != opcion.Id)
             {
@@ -97,6 +105,9 @@ namespace InstitutoIdioma.Controllers
             {
                 try
                 {
+
+                    opcion.Pregunta = await _context.Preguntas.Include(e => e.Examen).FirstOrDefaultAsync(e => e.Id == opcion.Pregunta.Id);
+
                     _context.Update(opcion);
                     await _context.SaveChangesAsync();
                 }
@@ -111,7 +122,7 @@ namespace InstitutoIdioma.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Pregunta", new { id = opcion.Pregunta.Id, examenId = opcion.Pregunta.Examen.Id });
             }
             return View(opcion);
         }

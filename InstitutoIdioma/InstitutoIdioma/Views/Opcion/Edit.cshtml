@@ -1,10 +1,10 @@
 ﻿@model InstitutoIdioma.Models.Opcion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Opcion</h4>
 <hr />
@@ -23,12 +23,15 @@
                     <input class="form-check-input" asp-for="EsCorrecta" /> @Html.DisplayNameFor(model => model.EsCorrecta)
                 </label>
             </div>
+            <input asp-for="Pregunta.Id" hidden />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
+
 
 <div>
     <a href="javascript:void(0);" onclick="history.go(-1);">Volver</a>

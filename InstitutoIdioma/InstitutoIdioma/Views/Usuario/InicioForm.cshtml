@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesion";
+}
+<html lang="es">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/formInicio.css" rel="stylesheet" />
+
+</head>
+<body>
+    <!-- <div class="form-inicio">
+         <p class="titulo"> Iniciar Sesion </p>
+         <form asp-action="Login" method="post">
+             <div class="texto">
+                 <p>Usuario:</p>
+                 <input type="text" class="input-inicio" name="usuario" />
+                 <p>Contraseña:</p>
+                 <input type="text" class="input-inicio" name="contra" />
+             </div>
+             <input type="submit" class="button-inicio" value="Save" />
+
+         </form>
+     </div>-->
+
+    <div class="container-form">
+        <p class="titulo"> Iniciar Sesion </p>
+
+        <form asp-action="Login" method="post">
+
+            <label for="fname">Usuario</label>
+            <input type="text" id="fname" name="usario" placeholder="Ingrese usuario...">
+
+
+            <label for="lname">Contraseña</label>
+            <input type="text" id="lname" name="contraseña" placeholder="Ingrese contraseña..">
+
+            <div class="row">
+                <input style="margin-top: 20px;" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

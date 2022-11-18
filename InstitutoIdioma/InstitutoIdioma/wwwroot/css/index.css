@@ -1,14 +1,8 @@
-﻿body {
-    font-family: 'Inter', sans-serif;
-    background-color: black;
-    font-weight: 800;
-}
-
+﻿
 .navbar {
     background-color: transparent !important;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;400&display=swap');
 .img-index {
     position: absolute;
     width: 100%;
@@ -42,14 +36,4 @@
     color: #FFFFFF;
 }
 
-.btn {
-    background-color: #757575;
-    border-radius: 100px;
-    width: 192px;
-    height: 56px;
-    color : white;
-}
-#inicio:hover {
-    background-color: #617A5D;
-    color:black;
-}
+

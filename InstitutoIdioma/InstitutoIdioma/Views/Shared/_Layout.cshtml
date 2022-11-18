@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - InstitutoIdioma</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/css/layout.css" rel="stylesheet" />
 </head>
 <body>
     <!--   <header>
@@ -40,13 +41,11 @@
         <div class="container-fluid">
             <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">InstitutoIdioma</a>
             <div class="d-flex">
-                <button class="btn" id="inicio">INICIAR SESION</button>
-                <button class="btn" id=" registro">REGISTRARSE</button>
-
+                <a class="btn" id="inicio"   asp-area="" asp-controller="Usuario" asp-action="InicioForm"  > INICIAR SESION </a>
+                <a class="btn" id="registro" asp-area="" asp-controller="Usuario" asp-action="RegistroForm">REGISTRARSE</a>
             </div>
         </div>
     </nav>
-
 
 
 

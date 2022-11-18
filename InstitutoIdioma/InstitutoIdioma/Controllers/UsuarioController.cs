@@ -149,5 +149,17 @@ namespace InstitutoIdioma.Controllers
         {
             return _context.Usuarios.Any(e => e.Id == id);
         }
+        public IActionResult RegistroForm()
+        {
+            return View();
+        }
+        public IActionResult InicioForm()
+        {
+            return View();
+        }
+
+      
+
+
     }
 }

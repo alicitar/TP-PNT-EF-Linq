@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InstitutoIdioma.Context;
 using InstitutoIdioma.Models;
+using Microsoft.AspNetCore.Session;
 
 namespace InstitutoIdioma.Controllers
 {
@@ -157,9 +158,6 @@ namespace InstitutoIdioma.Controllers
         {
             return View();
         }
-
-      
-
 
     }
 }

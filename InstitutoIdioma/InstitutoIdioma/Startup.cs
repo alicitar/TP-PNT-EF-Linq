@@ -13,6 +13,7 @@ using InstitutoIdioma.Context;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Session;
 
 namespace InstitutoIdioma
 {
@@ -39,6 +40,7 @@ namespace InstitutoIdioma
             .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession();
+            services.AddMvc();
 
         }
 

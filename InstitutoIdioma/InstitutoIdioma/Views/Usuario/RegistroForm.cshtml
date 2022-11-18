@@ -6,79 +6,45 @@
     <link href="~/css/formInicio.css" rel="stylesheet" />
 </head>
 <body>
-    <!--  <div class="form-registro">
-          <p class="titulo"> Registrarse </p>
-          <br />
-          <form asp-action="Login" method="post">
-              <div class="texto">
-                  <p>Usuario:</p>
-                  <input type="text" class="input-inicio" name="usuario" />
-                  <div class="container">
-                      <div class="row">
-                          <div class="col">
-                              <p>Contraseña:</p>
-                              <input type="password" class="input-inicio" name="contra" />
-                          </div>
-                          <div class="col">
-                              <p>Repetir contraseña:</p>
-                              <input type="password" class="input-inicio" name="repetir-contra" />
-                          </div>
-                      </div>
-                  </div>
-                  <p>Email:</p>
-                  <input type="email" class="input-inicio" name="email" />
-                  <p>DNI:</p>
-                  <input type="number" class="input-inicio" name="dni" />
-                  <div class="container">
-                      <div class="row">
-                          <div class="col">
-                              <p>Nombre:</p>
-                              <input type="text" class="input-inicio" name="nombre" />
-                          </div>
-                          <div class="col">
-                              <p>Apellido:</p>
-                              <input type="text" class="input-inicio" name="apellido" />
-                          </div>
-                      </div>
-                  </div>
-
-
-              </div>
-              <input type="submit" class="button-inicio" value="Save" />
-          </form>
-      </div> -->
-
     <div class="container-form">
         <p class="titulo"> Registrarse </p>
-
         <form asp-action="Login" method="post">
-
-
             <label>Usuario</label>
             <input type="text" name="usuario" placeholder="Ingrese usuario..">
-
-            <label>Contraseña</label>
-            <input type="password" name="contraseña" placeholder="Ingrese contraseña..">
-
-            <label>Repetir contraseña</label>
-            <input type="password" name="contraseñanueva" placeholder="Ingrese contraseña nuevamente..">
-
+            <div class="row">
+                <div class="col">
+                    <label>Contraseña</label>
+                    <input type="password" name="contraseña" placeholder="Ingrese contraseña..">
+                </div>
+                <div class="col">
+                    <label>Repetir contraseña</label>
+                    <input type="password" name="contraseñanueva" placeholder="Ingrese contraseña nuevamente..">
+                </div>
+            </div>
             <label>Email</label>
             <input type="email" name="email" placeholder="Ingrese email..">
-
-            <label>Fecha de nacimiento</label>
-            <input type="date" name="fechan">
-
-            <label>DNI</label>
-            <input type="text" name="dni" placeholder="Ingrese dni..">
-
-            <label>Nombre</label>
-            <input type="text" name="nombre" placeholder="Ingrese nombre..">
-
-            <label>Apellido</label>
-            <input type="text" name="apellido" placeholder="Ingrese apellido..">
             <div class="row">
-                <input type="submit" value="Submit">
+                <div class="col">
+                    <label>Fecha de nacimiento</label>
+                    <input type="date" name="fechan">
+                </div>
+                <div class="col">
+                    <label>DNI</label>
+                    <input type="text" name="dni" placeholder="Ingrese dni..">
+                </div>
+            </div>    
+            <div class="row">
+                <div class="col">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" placeholder="Ingrese nombre..">
+                </div>
+                <div class="col">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" placeholder="Ingrese apellido..">
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" id="registr" value="Save">
             </div>
         </form>
     </div>

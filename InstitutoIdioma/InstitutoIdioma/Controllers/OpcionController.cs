@@ -128,13 +128,13 @@ namespace InstitutoIdioma.Controllers
         }
 
         // GET: Opcion/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, int preguntaId)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            var pregunta = await _context.Preguntas.Include(e => e.Examen).FirstOrDefaultAsync(e => e.Id == preguntaId);
             var opcion = await _context.Opciones
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (opcion == null)
@@ -148,12 +148,13 @@ namespace InstitutoIdioma.Controllers
         // POST: Opcion/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, Opcion opcion)
         {
-            var opcion = await _context.Opciones.FindAsync(id);
+
+            opcion.Pregunta = await _context.Preguntas.Include(e => e.Examen).FirstOrDefaultAsync(e => e.Id == opcion.Pregunta.Id);
             _context.Opciones.Remove(opcion);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Edit", "Pregunta", new { id = opcion.Pregunta.Id, examenId = opcion.Pregunta.Examen.Id });
         }
 
         private bool OpcionExists(int id)

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InstitutoIdioma.Context;
 using InstitutoIdioma.Models;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace InstitutoIdioma.Controllers
 {
@@ -157,6 +158,39 @@ namespace InstitutoIdioma.Controllers
         public IActionResult InicioForm()
         {
             return View();
+        }
+
+        public IActionResult Login(string usuario, string contra)
+        {
+            //Validar usuario y contraseña contra la tabla correspondiente en la BD
+            //Si está OK, asignar el valor a la variable de sesion
+            Usuario usu = buscarUsuario(usuario);
+
+            if (usu == null)
+            {
+                ViewBag.Error = "El usuario es inexistente";
+                return View("InicioForm");
+            }
+            else if (contra == usu.Contrasenia)
+            {
+                ViewBag.ErrorContraseña = "La contraseña es incorrecta, vuelva a intentarlo";
+                return View("InicioForm");
+            }
+            else
+            {
+                HttpContext.Session.SetString("Usuario", usuario);
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+    
+        
+        
+
+        private Usuario buscarUsuario(String usuario)
+        {
+            //El metodo Single() convierne la coleccion en una unica entidad
+           return _context.Usuarios.Where(u => u.NombreUsuario == usuario).Single();           
         }
 
     }

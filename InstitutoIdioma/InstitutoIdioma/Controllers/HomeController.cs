@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace InstitutoIdioma.Controllers
 {
@@ -22,7 +23,8 @@ namespace InstitutoIdioma.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string nomusuario = HttpContext.Session.GetString("Usuario");
+            return View(model: nomusuario);
         }
 
         public IActionResult Privacy()

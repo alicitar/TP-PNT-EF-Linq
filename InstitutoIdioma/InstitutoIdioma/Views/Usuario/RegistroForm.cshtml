@@ -8,7 +8,7 @@
 <body>
     <div class="container-form">
         <p class="titulo"> Registrarse </p>
-        <form asp-action="Login" method="post">
+        <form asp-action="Registrarse" method="post">
             <label>Usuario</label>
             <input type="text" name="usuario" placeholder="Ingrese usuario..">
             <div class="row">
@@ -32,7 +32,7 @@
                     <label>DNI</label>
                     <input type="text" name="dni" placeholder="Ingrese dni..">
                 </div>
-            </div>    
+            </div>
             <div class="row">
                 <div class="col">
                     <label>Nombre</label>
@@ -47,6 +47,7 @@
                 <input type="submit" id="registr" value="Save">
             </div>
         </form>
+        <p style="color:#971e1e; text-align:center;">@ViewBag.Error</p>
     </div>
 </body>
 </html>

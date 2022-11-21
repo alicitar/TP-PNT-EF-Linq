@@ -24,8 +24,12 @@ namespace InstitutoIdioma.Controllers
         public IActionResult Index()
         {
             string nomusuario = HttpContext.Session.GetString("Usuario");
-            return View(model: nomusuario);
+                return View(model: nomusuario);
+            
+
         }
+
+      
 
         public IActionResult Privacy()
         {

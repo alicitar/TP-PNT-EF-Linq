@@ -11,7 +11,19 @@ namespace InstitutoIdioma.Models
     {
         public Usuario()
         {
+           
             Examenes = new List<UsuarioExamen>();
+        }
+
+        public Usuario(String nombreUsuario, String contrasenia, String email, DateTime fechadeNacimiento, String dni, String nombre, String apellido)
+        {
+            this.NombreUsuario = nombreUsuario;
+            this.Contrasenia = contrasenia;
+            this.Email = email;
+            this.FechaNacimiento = fechadeNacimiento;
+            this.Dni = dni;
+            this.Nombre = nombre;
+            this.Apellido = apellido;
         }
 
         [Key]
@@ -20,7 +32,7 @@ namespace InstitutoIdioma.Models
 
         [Display(Name = "Usuario")]
         public string NombreUsuario { get; set; }
-
+        
         public string Contrasenia { get; set; }
 
         public string Email { get; set; }

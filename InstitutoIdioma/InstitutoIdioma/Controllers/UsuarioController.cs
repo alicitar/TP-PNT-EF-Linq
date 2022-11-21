@@ -160,18 +160,18 @@ namespace InstitutoIdioma.Controllers
             return View();
         }
 
-        public IActionResult Login(string usuario, string contra)
+        public IActionResult Login(String usuario, String contra)
         {
             //Validar usuario y contraseña contra la tabla correspondiente en la BD
             //Si está OK, asignar el valor a la variable de sesion
-            Usuario usu = buscarUsuario(usuario);
+            Usuario usu = BuscarUsuario(usuario);
 
             if (usu == null)
             {
                 ViewBag.Error = "El usuario es inexistente";
                 return View("InicioForm");
             }
-            else if (contra == usu.Contrasenia)
+            else if (contra != usu.Contrasenia)
             {
                 ViewBag.ErrorContraseña = "La contraseña es incorrecta, vuelva a intentarlo";
                 return View("InicioForm");
@@ -183,14 +183,40 @@ namespace InstitutoIdioma.Controllers
             }
 
         }
-    
-        
-        
 
-        private Usuario buscarUsuario(String usuario)
+
+        public IActionResult Registrarse(String usuario, String contraseña, String contraseñanueva, String email, DateTime fechan, String dni, String nombre, String apellido)
+        {
+            Usuario usu = BuscarUsuario(usuario);
+            if(usu == null)
+            {
+                if (contraseña == contraseñanueva) {
+                    Usuario nuevo = new Usuario(usuario, contraseña, email, fechan, dni, nombre, apellido);
+                    Create(nuevo);
+                    //_context.Add(nuevo);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewBag.Error = "Las contraseñas no coinciden";
+                    return View("RegistroForm");
+
+                }
+            }
+            else
+            {
+                ViewBag.Error = "El usuario ya existe. Intente con otro";
+                return View ("RegistroForm");
+            }
+        }
+
+
+
+
+        private Usuario BuscarUsuario(String usuario)
         {
             //El metodo Single() convierne la coleccion en una unica entidad
-           return _context.Usuarios.Where(u => u.NombreUsuario == usuario).Single();           
+           return _context.Usuarios.Where(u => u.NombreUsuario == usuario).SingleOrDefault();           
         }
 
     }

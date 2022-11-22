@@ -56,7 +56,7 @@ namespace InstitutoIdioma.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NombreUsuario,Contrasenia,Email,FechaNacimiento,Dni,Nombre,Apellido,TipoPerfil,Nivel")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,NombreUsuario,Contrasenia,Email,FechaNacimiento,Dni,Nombre,Apellido")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -179,11 +179,19 @@ namespace InstitutoIdioma.Controllers
             else
             {
                 HttpContext.Session.SetString("Usuario", usuario);
+                HttpContext.Session.SetInt32("Perfil", (int)usu.TipoPerfil);
                 return RedirectToAction("Index", "Home");
             }
 
         }
 
+        public IActionResult Logout()
+        {
+
+            HttpContext.Session.SetString("Usuario", string.Empty);
+            HttpContext.Session.SetInt32("Perfil", 0);
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Registrarse(String usuario, String contraseña, String contraseñanueva, String email, DateTime fechan, String dni, String nombre, String apellido)
         {
@@ -192,9 +200,9 @@ namespace InstitutoIdioma.Controllers
             {
                 if (contraseña == contraseñanueva) {
                     Usuario nuevo = new Usuario(usuario, contraseña, email, fechan, dni, nombre, apellido);
-                    Create(nuevo);
-                    //_context.Add(nuevo);
-                    return RedirectToAction("Index", "Home");
+                    _context.Add(nuevo);
+                    _context.SaveChanges();
+                    return RedirectToAction("Login", "Usuario", new { usuario = nuevo.NombreUsuario, contra = nuevo.Contrasenia });
                 }
                 else
                 {

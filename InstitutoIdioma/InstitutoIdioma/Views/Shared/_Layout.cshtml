@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,40 +12,32 @@
     <link href="~/css/layout.css" rel="stylesheet" />
 </head>
 <body>
-    <!--   <header>
-             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                 <div class="container">
-                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InstitutoIdioma</a>
-                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                             aria-expanded="false" aria-label="Toggle navigation">
-                         <span class="navbar-toggler-icon"></span>
-                     </button>
-                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                         <ul class="navbar-nav flex-grow-1">
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Examen" asp-action="Index">Exámenes</a>
-                             </li>
-                             <li class="nav-item">
-                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                             </li>
-                         </ul>
-                     </div>
-                 </div>
-             </nav>
-         </header> -->
-
     <nav class="navbar bg-black">
         <div class="container-fluid">
             <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">InstitutoIdioma</a>
-            <div class="d-flex">
-                <a class="btn" id="inicio"   asp-area="" asp-controller="Usuario" asp-action="InicioForm"  > INICIAR SESION </a>
-                <a class="btn" id="registro" asp-area="" asp-controller="Usuario" asp-action="RegistroForm">REGISTRARSE</a>
+            <div class="d-flex center-menu">
+                @if (!string.IsNullOrEmpty(@HttpContextAccessor.HttpContext.Session.GetString("Usuario")))
+                {
+                    <a class="btn" id="Examen" asp-area="" asp-controller="Examen" asp-action="RendirExamenMenu">Exámenes</a>
+                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("Perfil") >= (int)TipoPerfil.PROFESOR)
+                    {
+                        <a class="btn" id="AdminsitrarNivel" asp-area="" asp-controller="Usuario" asp-action="AdministrarNiveles">Asignar Nivel</a>
+                        <a class="btn" id="AdminsitrarExamen" asp-area="" asp-controller="Examen" asp-action="Index">Administrar Exámenes</a>
+                    }
+                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("Perfil") >= (int)TipoPerfil.DIRECTOR)
+                    {
+                        <a class="btn" id="AdminsitrarPerfiles" asp-area="" asp-controller="Usuario" asp-action="AdministrarPerfiles">Administrar Perfiles</a>
+                    }
+                    <p class="menu-separator"></p>
+                    <p> Bienvenido, @HttpContextAccessor.HttpContext.Session.GetString("Usuario")</p>
+                    <a class="btn" id="CerrarSesion" asp-area="" asp-controller="Usuario" asp-action="Logout">CERRAR SESION </a>
+
+                }
+                else
+                {
+                    <a class="btn" id="inicio" asp-area="" asp-controller="Usuario" asp-action="InicioForm">INICIAR SESION </a>
+                    <a class="btn" id="registro" asp-area="" asp-controller="Usuario" asp-action="RegistroForm">REGISTRARSE</a>
+                }
             </div>
         </div>
     </nav>

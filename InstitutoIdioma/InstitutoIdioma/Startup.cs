@@ -36,11 +36,15 @@ namespace InstitutoIdioma
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddDbContext<InstitutoDatabaseContext>(options => options.UseSqlServer(Configuration["ConnectionString:InstitutoDBConnection"]));
-            services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
-            .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddMvc()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
             services.AddSession();
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }
 

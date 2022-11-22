@@ -7,8 +7,10 @@ namespace InstitutoIdioma.Models
 {
     public enum TipoPerfil
     {
+        SINLOGIN,
+        ALUMNO,
+        PROFESOR,
         DIRECTOR,
-        PROFESOR, 
-        ALUMNO
+        ADMINISTRATOR = 999
     }
 }

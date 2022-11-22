@@ -1,13 +1,15 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
 .btn {
     background-color: #757575;
-    border-radius: 100px;
-    width: 192px;
-    height: 56px;
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
     color: white;
     font-weight: 800;
     font-family: 'Poppins', sans-serif;
-    margin-left: 5%;
+    font-size: 12px;
+    margin-left: 1%;
+    margin-right: 1%;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -15,8 +17,19 @@
     align-content: center;
     display: flex;
     justify-content: center;
+    margin-top: 8px;
 }
 
+#inicio, #registro {
+    margin-top: -15px;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.btn:hover {
+    background-color: #AE5B5B;
+    color: black;
+}
 
 #inicio:hover {
     background-color: #617A5D;
@@ -28,9 +41,39 @@
     color: black;
 }
 
+#CerrarSesion {
+    background-color: orangered;
+    color: white;
+}
+#CerrarSesion:hover {
+    background-color: #AE5B5B;
+    color: black;
+}
+
 body {
     background-color: black;
     font-weight: 900;
     font-family: 'Poppins', sans-serif;
 }
 
+.navbar {
+    height: 117px;
+}
+
+.center-menu {
+    margin-top: 15px;
+}
+
+.navbar p {
+    color: white;
+    font-size: 18px;
+    width: 100px;
+    margin-right: 20px;
+}
+
+.menu-separator {
+    width: 2px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid white;
+}

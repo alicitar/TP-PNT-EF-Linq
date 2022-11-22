@@ -21,12 +21,12 @@
                     <a class="btn" id="Examen" asp-area="" asp-controller="Examen" asp-action="RendirExamenMenu">Exámenes</a>
                     @if (@HttpContextAccessor.HttpContext.Session.GetInt32("Perfil") >= (int)TipoPerfil.PROFESOR)
                     {
-                        <a class="btn" id="AdminsitrarNivel" asp-area="" asp-controller="Usuario" asp-action="AdministrarNiveles">Asignar Nivel</a>
                         <a class="btn" id="AdminsitrarExamen" asp-area="" asp-controller="Examen" asp-action="Index">Administrar Exámenes</a>
+                        <a class="btn" id="AdminsitrarNivel" asp-area="" asp-controller="Usuario" asp-action="AdministrarNiveles">Asignar Nivel</a>
                     }
                     @if (@HttpContextAccessor.HttpContext.Session.GetInt32("Perfil") >= (int)TipoPerfil.DIRECTOR)
                     {
-                        <a class="btn" id="AdminsitrarPerfiles" asp-area="" asp-controller="Usuario" asp-action="AdministrarPerfiles">Administrar Perfiles</a>
+                        <a class="btn" id="AdminsitrarPerfiles" asp-area="" asp-controller="Usuario" asp-action="AdministrarPerfiles">Asignar Perfil</a>
                     }
                     <p class="menu-separator"></p>
                     <p> Bienvenido, @HttpContextAccessor.HttpContext.Session.GetString("Usuario")</p>

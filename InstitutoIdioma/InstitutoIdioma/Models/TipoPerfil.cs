@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,10 +8,13 @@ namespace InstitutoIdioma.Models
 {
     public enum TipoPerfil
     {
-        SINLOGIN,
+        [Description("Sin Asignar")]
+        SinAsignar,
         ALUMNO,
         PROFESOR,
         DIRECTOR,
-        ADMINISTRATOR = 999
+        ADMINISTRADOR = 999
     }
+
+
 }

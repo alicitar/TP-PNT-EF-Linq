@@ -196,9 +196,10 @@ namespace InstitutoIdioma.Controllers
         public IActionResult Registrarse(String usuario, String contraseña, String contraseñanueva, String email, DateTime fechan, String dni, String nombre, String apellido)
         {
             Usuario usu = BuscarUsuario(usuario);
-            if(usu == null)
+            if (usu == null)
             {
-                if (contraseña == contraseñanueva) {
+                if (contraseña == contraseñanueva)
+                {
                     Usuario nuevo = new Usuario(usuario, contraseña, email, fechan, dni, nombre, apellido);
                     _context.Add(nuevo);
                     _context.SaveChanges();
@@ -214,7 +215,7 @@ namespace InstitutoIdioma.Controllers
             else
             {
                 ViewBag.Error = "El usuario ya existe. Intente con otro";
-                return View ("RegistroForm");
+                return View("RegistroForm");
             }
         }
 
@@ -224,7 +225,83 @@ namespace InstitutoIdioma.Controllers
         private Usuario BuscarUsuario(String usuario)
         {
             //El metodo Single() convierne la coleccion en una unica entidad
-           return _context.Usuarios.Where(u => u.NombreUsuario == usuario).SingleOrDefault();           
+            return _context.Usuarios.Where(u => u.NombreUsuario == usuario).SingleOrDefault();
+        }
+
+        private List<SelectListItem> ObtenerTodosLosUsuarios(int modo)
+        {
+            List<SelectListItem> usuarios = new List<SelectListItem>();
+
+            List<Usuario> usuariosDB = new List<Usuario>();
+            switch (modo)
+            {
+                case 1: // Perfiles
+                    usuariosDB = _context.Usuarios.Where(u => (int)u.TipoPerfil < (int)TipoPerfil.ADMINISTRADOR).ToList();
+                    break;
+                case 2: // Niveles
+                    
+                    usuariosDB = _context.Usuarios.Where(u => (int)u.TipoPerfil < HttpContext.Session.GetInt32("Perfil")).ToList();
+                    break;
+            }
+
+
+            foreach (Usuario usuario in usuariosDB)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Value = usuario.Id.ToString();
+                switch (modo)
+                {
+                    case 1: // Perfiles
+                        item.Text = string.Format("{0} ({1} {2}) - {3}", usuario.NombreUsuario, usuario.Nombre, usuario.Apellido, EnumExtensions.GetDescription(usuario.TipoPerfil));
+                        break;
+                    case 2: // Niveles
+                        item.Text = string.Format("{0} ({1} {2}, {3}) - {4}", usuario.NombreUsuario, usuario.Nombre, usuario.Apellido, EnumExtensions.GetDescription(usuario.TipoPerfil), EnumExtensions.GetDescription(usuario.Nivel));
+                        break;
+                }
+                usuarios.Add(item);
+            }
+
+            return usuarios;
+        }
+
+        public async Task<IActionResult> AdministrarPerfiles()
+        {
+            var model = new SelectorUsuario
+            {
+                Seleccionados = new[] { 0 },
+                Usuarios = ObtenerTodosLosUsuarios(1)
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AsignarPerfil([Bind("Seleccionados, Perfil")] SelectorUsuario usuariosPerfil)
+        {
+
+            await _context.Usuarios.Where(u => usuariosPerfil.Seleccionados.ToList().Contains(u.Id)).ForEachAsync(u => u.TipoPerfil = usuariosPerfil.Perfil);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(AdministrarPerfiles));
+        }
+
+        public async Task<IActionResult> AdministrarNiveles()
+        {
+            var model = new SelectorUsuario
+            {
+                Seleccionados = new[] { 0 },
+                Usuarios = ObtenerTodosLosUsuarios(2)
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AsignarNivel([Bind("Seleccionados, NivelIdioma")] SelectorUsuario usuariosPerfil)
+        {
+
+            await _context.Usuarios.Where(u => usuariosPerfil.Seleccionados.ToList().Contains(u.Id)).ForEachAsync(u => u.Nivel = usuariosPerfil.NivelIdioma);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(AdministrarNiveles));
         }
 
     }

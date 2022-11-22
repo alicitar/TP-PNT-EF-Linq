@@ -26,5 +26,9 @@ namespace InstitutoIdioma.Models
         public List<Pregunta> Preguntas { get; set; }
 
         public virtual List<UsuarioExamen> Usuarios { get; set; }
+
+        [EnumDataType(typeof(NivelIdioma))]
+        [Display(Name = "Nivel de idioma")]
+        public NivelIdioma Nivel { get; set; }
     }
 }

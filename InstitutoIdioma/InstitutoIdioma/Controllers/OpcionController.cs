@@ -19,30 +19,6 @@ namespace InstitutoIdioma.Controllers
             _context = context;
         }
 
-        // GET: Opcion
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Opciones.ToListAsync());
-        }
-
-        // GET: Opcion/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var opcion = await _context.Opciones
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (opcion == null)
-            {
-                return NotFound();
-            }
-
-            return View(opcion);
-        }
-
         // GET: Opcion/Create
         public IActionResult Create(int preguntaId)
         {

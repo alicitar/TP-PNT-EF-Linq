@@ -3,10 +3,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace InstitutoIdioma.Migrations
 {
-    public partial class InstitutoIdiomaContextInstitutoDatabaseContext : Migration
+    public partial class InstitutoIdiomaMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Examenes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(nullable: true),
+                    Nivel = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Examenes", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
@@ -20,7 +34,8 @@ namespace InstitutoIdioma.Migrations
                     Dni = table.Column<string>(nullable: true),
                     Nombre = table.Column<string>(nullable: true),
                     Apellido = table.Column<string>(nullable: true),
-                    TipoPerfil = table.Column<int>(nullable: false)
+                    TipoPerfil = table.Column<int>(nullable: false),
+                    Nivel = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,27 +43,7 @@ namespace InstitutoIdioma.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Examenes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EstaAprobado = table.Column<bool>(nullable: false),
-                    UsuarioId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Examenes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Examenes_Usuarios_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "preguntas",
+                name: "Preguntas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -58,11 +53,36 @@ namespace InstitutoIdioma.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_preguntas", x => x.Id);
+                    table.PrimaryKey("PK_Preguntas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_preguntas_Examenes_ExamenId",
+                        name: "ForeignKey_Preguntas_Examen",
                         column: x => x.ExamenId,
                         principalTable: "Examenes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UsuarioExamen",
+                columns: table => new
+                {
+                    UsuarioId = table.Column<int>(nullable: false),
+                    ExamenId = table.Column<int>(nullable: false),
+                    EstaAprobado = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UsuarioExamen", x => new { x.UsuarioId, x.ExamenId });
+                    table.ForeignKey(
+                        name: "FK_UsuarioExamen_Examenes_ExamenId",
+                        column: x => x.ExamenId,
+                        principalTable: "Examenes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UsuarioExamen_Usuarios_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -74,24 +94,19 @@ namespace InstitutoIdioma.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Texto = table.Column<string>(nullable: true),
-                    EsCorrecta = table.Column<bool>(nullable: false),
-                    PreguntaId = table.Column<int>(nullable: true)
+                    PreguntaId = table.Column<int>(nullable: true),
+                    EsCorrecta = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Opciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Opciones_preguntas_PreguntaId",
+                        name: "ForeignKey_Opciones_Pregunta",
                         column: x => x.PreguntaId,
-                        principalTable: "preguntas",
+                        principalTable: "Preguntas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Examenes_UsuarioId",
-                table: "Examenes",
-                column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Opciones_PreguntaId",
@@ -99,8 +114,13 @@ namespace InstitutoIdioma.Migrations
                 column: "PreguntaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_preguntas_ExamenId",
-                table: "preguntas",
+                name: "IX_Preguntas_ExamenId",
+                table: "Preguntas",
+                column: "ExamenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuarioExamen_ExamenId",
+                table: "UsuarioExamen",
                 column: "ExamenId");
         }
 
@@ -110,13 +130,16 @@ namespace InstitutoIdioma.Migrations
                 name: "Opciones");
 
             migrationBuilder.DropTable(
-                name: "preguntas");
+                name: "UsuarioExamen");
 
             migrationBuilder.DropTable(
-                name: "Examenes");
+                name: "Preguntas");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Examenes");
         }
     }
 }

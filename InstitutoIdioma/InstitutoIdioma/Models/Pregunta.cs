@@ -23,5 +23,8 @@ namespace InstitutoIdioma.Models
         public Examen Examen { get; set; }
 
         public List<Opcion> Opciones { get; set; }
+
+        [NotMapped]
+        public int OpcionSeleccionada { get; set; }
     }
 }

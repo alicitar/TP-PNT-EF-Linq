@@ -16,6 +16,7 @@ namespace InstitutoIdioma.Context
         public DbSet<Opcion> Opciones { get; set; }
         public DbSet<Pregunta> Preguntas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioExamen> UsuarioExamen { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InstitutoIdioma.Migrations
 {
     [DbContext(typeof(InstitutoDatabaseContext))]
-    [Migration("20221110014321_InstitutoIdioma.Context.InstitutoDatabaseContext6")]
-    partial class InstitutoIdiomaContextInstitutoDatabaseContext6
+    [Migration("20221122194920_InstitutoIdiomaMigrations")]
+    partial class InstitutoIdiomaMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace InstitutoIdioma.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Nivel")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -76,7 +79,7 @@ namespace InstitutoIdioma.Migrations
 
                     b.HasIndex("ExamenId");
 
-                    b.ToTable("preguntas");
+                    b.ToTable("Preguntas");
                 });
 
             modelBuilder.Entity("InstitutoIdioma.Models.Usuario", b =>

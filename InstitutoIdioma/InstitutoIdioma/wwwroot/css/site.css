@@ -69,3 +69,28 @@ h1, h2, h3, h4, h5, p, td {
 th {
     color: lightgray !important;
 }
+
+.examen-box {
+    width: 200px;
+    height: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: table;
+    border: 1px solid white;
+    float: left;
+}
+
+.examen-nombre {
+    color: white !important;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.pendiente {
+    background-color: darkorange;
+}
+
+.aprobado {
+    background-color: darkgreen;
+}

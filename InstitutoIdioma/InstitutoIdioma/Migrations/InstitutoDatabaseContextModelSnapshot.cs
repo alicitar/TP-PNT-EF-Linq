@@ -26,6 +26,9 @@ namespace InstitutoIdioma.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Nivel")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
@@ -74,7 +77,7 @@ namespace InstitutoIdioma.Migrations
 
                     b.HasIndex("ExamenId");
 
-                    b.ToTable("preguntas");
+                    b.ToTable("Preguntas");
                 });
 
             modelBuilder.Entity("InstitutoIdioma.Models.Usuario", b =>

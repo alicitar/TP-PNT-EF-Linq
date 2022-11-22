@@ -19,12 +19,6 @@ namespace InstitutoIdioma.Controllers
             _context = context;
         }
 
-        // GET: Pregunta
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Preguntas.ToListAsync());
-        }
-
         // GET: Pregunta/Details/5
         public async Task<IActionResult> Details(int? id, int examenId)
         {

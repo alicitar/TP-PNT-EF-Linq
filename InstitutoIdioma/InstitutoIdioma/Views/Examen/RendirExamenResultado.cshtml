@@ -1,0 +1,14 @@
+﻿@model InstitutoIdioma.Models.ExamenResultado
+
+@{
+    ViewData["Title"] = "Resultado Examen: " + Model.Nombre;
+}
+
+<h1>Resultado Examen: @Model.Nombre</h1>
+
+
+<p>Resultado: @Model.Aprobado</p>
+
+<p>Respuestas Correctas: @Model.RespuestasCorrectas de @Model.CantidadPreguntas (@Model.PorcentajeAprobacion%)</p>
+
+ <a asp-action="RendirExamenMenu">Volver al listado de Examenes</a>

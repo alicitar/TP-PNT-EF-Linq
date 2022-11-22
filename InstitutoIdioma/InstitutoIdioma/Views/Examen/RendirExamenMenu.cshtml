@@ -1,0 +1,22 @@
+﻿@model IEnumerable<InstitutoIdioma.Models.UsuarioExamen>
+
+@{
+    ViewData["Title"] = "Exámenes Disponibles";
+}
+
+<h1>Exámenes Disponibles</h1>
+
+
+@foreach (UsuarioExamen item in Model){
+<div class="examen-box">
+    @if (item.EstaAprobado)
+    {
+        <a class="examen-nombre aprobado">@item.Examen.Nombre</a>
+    }
+    else
+    {
+        <a asp-action="RendirExamen" asp-route-id="@item.ExamenId" class="examen-nombre pendiente">@item.Examen.Nombre</a>
+    }
+</div>
+
+}

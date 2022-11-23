@@ -65,7 +65,7 @@
     box-sizing: border-box;
 }
 
-input[type=text], select, textarea,input[type=password],input[type=email],input[type=date] {
+input[type=text], select, textarea,input[type=password],input[type=email],input[type=date],select {
     width: 100%;
     padding: 12px;
     border: none;
@@ -75,7 +75,7 @@ input[type=text], select, textarea,input[type=password],input[type=email],input[
     background: #2B2B2B;
 }
 
-label {
+label,select {
     padding: 12px 12px 12px 3px;
     display: inline-block;
 }

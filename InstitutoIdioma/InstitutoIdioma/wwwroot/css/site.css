@@ -1,6 +1,9 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+body{
+   color :white;
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -63,7 +66,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, p, td {
-    color: gray !important;
+    color: gray;
 }
 
 th {
@@ -78,6 +81,7 @@ th {
     display: table;
     border: 1px solid white;
     float: left;
+    border-radius :10px;
 }
 
 .examen-nombre {
@@ -85,6 +89,7 @@ th {
     text-align: center;
     vertical-align: middle;
     display: table-cell;
+    border-radius: 10px;
 }
 
 .pendiente {
@@ -93,4 +98,54 @@ th {
 
 .aprobado {
     background-color: darkgreen;
+}
+
+.crearnuevo {
+    background-color: #b9280e;
+    border-radius: 5px;
+    padding : 10px;
+}
+
+    .crearnuevo:hover {
+        background-color: #83200e;
+    }
+
+.acciones {
+    color:white;
+    text-decoration :none;
+    background-color: #340000;
+    border-radius: 5px;
+    padding: 10px;
+}
+    .acciones:hover {
+        color: white;
+        text-decoration: none;
+        background-color: #520000;
+    }
+
+.nombreExamen{
+    color:#ffffff;
+}
+
+.nivelExamen {
+    color: #ffffff;
+}
+.titl{
+    color:white;
+}
+
+#Seleccionados {
+    border-radius: 10px;
+    background-color: black;
+    color: white;
+}
+
+
+#NivelIdioma {
+    background-color: black;
+    color: white
+}
+select#Perfil {
+    background-color: black;
+    color: white
 }

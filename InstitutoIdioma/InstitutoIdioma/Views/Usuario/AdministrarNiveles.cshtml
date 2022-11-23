@@ -3,22 +3,26 @@
 @{
     ViewData["Title"] = "Asignación de Perfiles";
 }
+<head>
+       <script src="~/js/validacionRespuesta.js"></script>
+    <script>setInterval(validacionAsignacionNiveles, 100)</script>
+</head>
 <body>
-    <div class="container-form col-md-7">
-        <p class="titulo"> Asignación de Perfiles </p>
+    <div  class="container-form col-md-7">
+        <p style="color:white" class="titulo"> Asignación de Perfiles </p>
         <form asp-action="AsignarNivel" method="post">
             <div class="form-group">
-                <label asp-for="Usuarios" class="control-label"></label>
+                <label style="color:#08856e" asp-for="Usuarios" class="control-label"></label>
                 <br />
                 @Html.ListBoxFor(x => x.Seleccionados, Model.Usuarios, new { style= "width:600px"})
                 <br />
             </div>
             <div class="form-group">
-                <label asp-for="NivelIdioma" class="control-label"></label>
+                <label style="color:#08856e" asp-for="NivelIdioma" class="control-label"></label>
                 @Html.DropDownListFor(m => m.NivelIdioma, Html.GetEnumSelectList<NivelIdioma>(), new { @class = "form-control" })
             </div>
             <div class="row">
-                <input class="btn btn-primary" type="submit" id="AsignarNiveles" value="Guardar Cambios">
+                <input class="btn btn-primary" style="pointer-events:none" type="submit" id="AsignarNiveles" value="Guardar Cambios">
             </div>
         </form>
         <p style="color:#971e1e; text-align:center;">@ViewBag.Error</p>

@@ -91,10 +91,13 @@ namespace InstitutoIdioma.Controllers
             HttpContext.Session.SetInt32("Perfil", 0);
             return RedirectToAction("Index", "Home");
         }
+        
 
-        public IActionResult Registrarse(String usuario, String contraseña, String contraseñanueva, String email, DateTime fechan, String dni, String nombre, String apellido)
+        public IActionResult Registrarse(String usuario, String contraseña, String contraseñanueva, String email, DateTime fechan, String dni, String nombre, String apellido, int tipoperfil)
         {
             Usuario usu = BuscarUsuario(usuario);
+
+            ViewBag.usuarioEncontrado= usu;
             if (usu == null)
             {
                 if (contraseña == contraseñanueva)
@@ -104,6 +107,20 @@ namespace InstitutoIdioma.Controllers
                     {
                         nuevo.TipoPerfil = TipoPerfil.ADMINISTRADOR;
                     }
+
+                    switch (tipoperfil)
+                    {                        
+                        case 1: 
+                            nuevo.TipoPerfil = TipoPerfil.PROFESOR;
+                            break;
+                        case 2:
+                            nuevo.TipoPerfil = TipoPerfil.ALUMNO;
+                            break;
+                        case 3:
+                            nuevo.TipoPerfil = TipoPerfil.DIRECTOR;
+                            break;
+                    }
+
                     _context.Add(nuevo);
                     _context.SaveChanges();
                     return RedirectToAction("Login", "Usuario", new { usuario = nuevo.NombreUsuario, contra = nuevo.Contrasenia });
@@ -121,9 +138,6 @@ namespace InstitutoIdioma.Controllers
                 return View("RegistroForm");
             }
         }
-
-
-
 
         private Usuario BuscarUsuario(String usuario)
         {

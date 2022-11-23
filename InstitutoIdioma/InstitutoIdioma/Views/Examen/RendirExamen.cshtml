@@ -6,7 +6,10 @@
 
 <h1>Examen: @Model.Nombre</h1>
 
-
+<head>
+    <script src="~/js/validacionRespuesta.js"></script>
+    <script>setInterval(validacionRespuestas, 100)</script>
+</head>
 
 @using (Html.BeginForm("RendirExamenResultado", "Examen", FormMethod.Post))
 {
@@ -18,7 +21,7 @@
         <p>@Model.Preguntas[i].Enunciado</p>
         for (int j = 0; j < Model.Preguntas[i].Opciones.Count; j++)
         {
-            <div>
+            <div id="resp">
                 @Html.RadioButtonFor(m => m.Preguntas[i].OpcionSeleccionada, Model.Preguntas[i].Opciones[j].Id)
                 <span>@Model.Preguntas[i].Opciones[j].Texto</span>
             </div>
@@ -26,6 +29,6 @@
         <br />
     }
     <div class="form-group">
-        <input type="submit" value="Enviar Respuestas" class="btn btn-primary" />
+        <input type="submit" id="boton" value="Enviar Respuestas" class="btn btn-primary" />
     </div>
 }

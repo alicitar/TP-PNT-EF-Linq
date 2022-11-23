@@ -4,50 +4,80 @@
 <html>
 <head>
     <link href="~/css/formInicio.css" rel="stylesheet" />
+    <script src="~/js/Validaciones.js"></script>
+    <script>
+
+
+    </script>
 </head>
 <body>
     <div class="container-form">
-        <p class="titulo"> Registrarse </p>
+        <p class="titulo" style="color:white"> Registrarse </p>
         <form asp-action="Registrarse" method="post">
+
             <label>Usuario</label>
-            <input type="text" name="usuario" placeholder="Ingrese usuario..">
+            <input type="text" name="usuario" id="usuario" placeholder="Ingrese usuario..">
+            <p style="color:#971e1e;" id="errorusuario">@ViewBag.Error</p>
+
             <div class="row">
                 <div class="col">
                     <label>Contraseña</label>
-                    <input type="password" name="contraseña" placeholder="Ingrese contraseña..">
+                    <input type="password" name="contraseña" id="contra" placeholder="Ingrese contraseña..">
                 </div>
                 <div class="col">
                     <label>Repetir contraseña</label>
-                    <input type="password" name="contraseñanueva" placeholder="Ingrese contraseña nuevamente..">
+                    <input type="password" name="contraseñanueva" id="contranueva" placeholder="Ingrese contraseña nuevamente..">
                 </div>
             </div>
+            <p style="color:#971e1e;" id="contraerror"></p>
+
+
             <label>Email</label>
-            <input type="email" name="email" placeholder="Ingrese email..">
+            <input type="email" name="email" id="email" placeholder="Ingrese email..">
+            <p style="color:#971e1e;" id="emailerror"></p>
+
+
             <div class="row">
                 <div class="col">
                     <label>Fecha de nacimiento</label>
-                    <input type="date" name="fechan">
+                    <input type="date" id="fecha" name="fechan">
                 </div>
+                <p style="color:#971e1e;" id="fechaerror"></p>
+
                 <div class="col">
                     <label>DNI</label>
-                    <input type="text" name="dni" placeholder="Ingrese dni..">
+                    <input type="text" name="dni" id="dni" pattern="[0-9]+" placeholder="Ingrese dni..">
                 </div>
+                <p style="color:#971e1e;" id="dnierror"></p>
+
             </div>
             <div class="row">
                 <div class="col">
                     <label>Nombre</label>
-                    <input type="text" name="nombre" placeholder="Ingrese nombre..">
+                    <input type="text" name="nombre" id="nombre" placeholder="Ingrese nombre..">
+                    <p style="color:#971e1e;" id="nombreerror"></p>
+
                 </div>
+
                 <div class="col">
                     <label>Apellido</label>
-                    <input type="text" name="apellido" placeholder="Ingrese apellido..">
+                    <input type="text" name="apellido" id="apellido" placeholder="Ingrese apellido..">
+                    <p style="color:#971e1e;" id="apellidoerror"></p>
+
                 </div>
             </div>
+            <label>Tipo de Perfil</label>
+
+            <select class="form-select" name="tipoperfil" id="opciones" aria-label="Open this select menu">
+                <option value="1">Profesor</option>
+                <option value="2">Alumno</option>
+                <option value="3">Director</option>
+            </select>
+
             <div class="row">
                 <input type="submit" id="registr" value="Save">
             </div>
         </form>
-        <p style="color:#971e1e; text-align:center;">@ViewBag.Error</p>
     </div>
 </body>
 </html>

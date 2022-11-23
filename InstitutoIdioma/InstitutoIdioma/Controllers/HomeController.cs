@@ -23,10 +23,11 @@ namespace InstitutoIdioma.Controllers
 
         public IActionResult Index()
         {
-            string nomusuario = HttpContext.Session.GetString("Usuario");
-                return View(model: nomusuario);
+            string nomusuario = HttpContext.Session.GetString("Usuario");               
+            return View(model: nomusuario);
             
 
+        
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -4,10 +4,15 @@
     ViewData["Title"] = "Exámenes";
 }
 
-<h1>Exámenes</h1>
+<head>
+ 
+
+</head>
+
+<h1 class="titl">Exámenes</h1>
 
 <p>
-    <a asp-action="Create">Crear nuevo examen</a>
+    <a asp-action="Create" class="crearnuevo"  style=" color:white">CREAR NUEVO EXAMEN</a>
 </p>
 <table class="table">
     <thead>
@@ -24,16 +29,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="nombreExamen">
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
-            <td>
+            <td class="nivelExamen">
                 @Html.DisplayFor(modelItem => item.Nivel)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                <a class="acciones" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a class="acciones" asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a class="acciones" asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
             </td>
         </tr>
 }
